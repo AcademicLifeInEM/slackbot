@@ -36,6 +36,7 @@ export default function route(bot: Botkit.Bot): express.Router {
                 },
             ],
         } as Botkit.MessageWithoutContext, (err) => {
+            console.log(err);
             if (err) return res.sendStatus(503);
             res.sendStatus(200);
         });
