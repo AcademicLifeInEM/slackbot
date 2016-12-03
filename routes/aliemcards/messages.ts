@@ -7,7 +7,6 @@ const CHANNEL_ID = 'C0976C2TZ'; // #aliemcards
 export default function route(bot: Botkit.Bot): express.Router {
 
     router.post('/contact-form', requireAuthentication, (req, res) => {
-        console.log(req);
         const { name, email, message } = req.body.data;
         if (!name || !email || !message) return res.sendStatus(400);
         bot.say({
