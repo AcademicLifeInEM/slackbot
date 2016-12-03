@@ -1,5 +1,4 @@
-
-declare namespace Botkit {
+declare module 'botkit' {
 
     type MessageWithContext = Msg.AttachmentMessage|Msg.TextMessage|(Msg.AttachmentMessage & Msg.TextMessage);
     type MessageWithoutContext = Msg.AttachmentMessageNoContext|Msg.TextMessageNoContext|(Msg.AttachmentMessageNoContext & Msg.TextMessageNoContext);
@@ -306,5 +305,7 @@ declare namespace Botkit {
             question: string;
         }
     }
+
+    export function slackbot(config: {debug: boolean, storage: any}): Controller;
 
 }

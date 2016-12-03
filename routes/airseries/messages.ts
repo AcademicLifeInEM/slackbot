@@ -1,3 +1,4 @@
+import * as Botkit from 'botkit';
 import * as express from 'express';
 import { requireAuthentication } from '../../helpers/authentication';
 import { wordpressComment } from '../../helpers/sharedHandlers';

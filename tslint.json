@@ -11,7 +11,7 @@
         "no-duplicate-variable": true,
         "no-empty": true,
         "no-eval": true,
-        "no-internal-module": true,
+        "no-internal-module": false,
         "no-reference": true,
         "no-shadowed-variable": true,
         "no-trailing-whitespace": true,

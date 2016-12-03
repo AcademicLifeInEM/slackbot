@@ -1,3 +1,4 @@
+import * as Botkit from 'botkit';
 import * as express from 'express';
 const router = express.Router();
 const CHANNEL_ID = 'G0KM9J46P';
@@ -41,7 +42,7 @@ export default function route(bot: Botkit.Bot): express.Router {
                     footer: 'Note: The draft URL will not work unless you are logged in. | <https://paper.dropbox.com/doc/ALiEM-Copyeditor-Instructions-HSCqUig374uB35LR3wn53|Click here to view instructions>',
                 },
             ],
-        } as Botkit.MessageWithoutContext, (err, resp) => {
+        } as Botkit.MessageWithoutContext, err => {
             if (err) return res.sendStatus(503);
             res.sendStatus(200);
         });
@@ -63,7 +64,7 @@ export default function route(bot: Botkit.Bot): express.Router {
                     mrkdwn_in: ['text'],
                 },
             ],
-        } as Botkit.MessageWithoutContext, (err, resp) => {
+        } as Botkit.MessageWithoutContext, err => {
             if (err) return res.sendStatus(503);
             res.sendStatus(200);
         });
@@ -85,7 +86,7 @@ export default function route(bot: Botkit.Bot): express.Router {
                     mrkdwn_in: ['text'],
                 },
             ],
-        } as Botkit.MessageWithoutContext, (err, resp) => {
+        } as Botkit.MessageWithoutContext, err => {
             if (err) return res.sendStatus(503);
             res.sendStatus(200);
         });

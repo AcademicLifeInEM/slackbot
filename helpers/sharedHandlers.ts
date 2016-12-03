@@ -1,3 +1,4 @@
+import * as Botkit from 'botkit';
 
 /**
  * Common handler for routing WordPress comments
@@ -34,7 +35,7 @@ export function wordpressComment(bot: Botkit.Bot, channel: string, req, res) {
                 ],
             },
         ],
-    } as Botkit.MessageWithoutContext, (err, resp) => {
+    } as Botkit.MessageWithoutContext, err => {
         if (err) return res.sendStatus(503);
         res.sendStatus(200);
     });

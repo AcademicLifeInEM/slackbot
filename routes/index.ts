@@ -1,3 +1,4 @@
+import * as Botkit from 'botkit';
 import * as express from 'express';
 import airseries from './airseries/';
 import airPro from './airseries-pro/';

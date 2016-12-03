@@ -1,3 +1,4 @@
+import * as Botkit from 'botkit';
 import * as aliemu from './#aliemu';
 
 export default async function interactiveMessageCallbacks(bot: Botkit.Bot, msg: Botkit.ActionMessage) {
@@ -13,7 +14,7 @@ export default async function interactiveMessageCallbacks(bot: Botkit.Bot, msg: 
                 response = await aliemu.dashboardAccess(msg);
                 break;
             default:
-                throw { code: 500, message: 'No matching callback ID found.' }
+                throw { code: 500, message: 'No matching callback ID found.' };
         }
     }
     catch (e) {
@@ -23,7 +24,7 @@ export default async function interactiveMessageCallbacks(bot: Botkit.Bot, msg: 
     }
 
     bot.replyInteractive(msg, response);
-}
+};
 
 
 function counter(msg: Botkit.ActionMessage): Botkit.MessageWithContext {

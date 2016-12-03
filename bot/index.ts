@@ -1,3 +1,4 @@
+import * as Botkit from 'botkit';
 import interactiveCallbacks from './interactiveCallbacks/';
 
 export default function(controller: Botkit.Controller, users: UserList): Botkit.Controller {
@@ -13,7 +14,7 @@ export default function(controller: Botkit.Controller, users: UserList): Botkit.
     controller.hears(['appear.in'], ['direct_mention'], (bot, message) => {
         const user = users[message.user].name;
 
-        bot.startConversation(message, (err, convo) => {
+        bot.startConversation(message, (_, convo) => {
             convo.ask('What would you like the room called?', (resp, c) => {
                 const room = resp.text.replace(/\s/g, '-');
                 startRoom(room);

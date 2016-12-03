@@ -1,7 +1,8 @@
+import * as Botkit from 'botkit';
 import * as express from 'express';
 import { requireAuthentication } from '../../helpers/authentication';
 const router = express.Router();
-const CHANNEL_ID = '**********'; // #aliemcards
+const CHANNEL_ID = 'C0976C2TZ'; // #aliemcards
 
 export default function route(bot: Botkit.Bot): express.Router {
 
@@ -33,7 +34,7 @@ export default function route(bot: Botkit.Bot): express.Router {
                     ],
                 },
             ],
-        } as Botkit.MessageWithoutContext, (err, resp) => {
+        } as Botkit.MessageWithoutContext, (err) => {
             if (err) return res.sendStatus(503);
             res.sendStatus(200);
         });

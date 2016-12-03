@@ -1,3 +1,4 @@
+import * as Botkit from 'botkit';
 import * as express from 'express';
 const router = express.Router();
 const CHANNEL_ID = 'C09762GTV'; // #aliemu

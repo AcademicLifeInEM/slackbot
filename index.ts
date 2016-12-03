@@ -1,4 +1,4 @@
-if (process.env.NODE_ENV !== 'production') require('dotenv').config();
+import * as Botkit from 'botkit';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import routes from './routes';
@@ -7,14 +7,12 @@ import rootController from './bot';
 const PORT = process.env.PORT || 5000;
 const CLIENT_ID = process.env.SLACK_CLIENT_ID;
 const CLIENT_SECRET = process.env.SLACK_CLIENT_SECRET;
-const SLACKBOT_TOKEN = process.env.SLACKBOT_TOKEN;
 const MONGODB_URI = process.env.MONGODB_URI;
 const BOTS_RUNNING = {};
 const CHANNELS = {};
 const USERS = {};
 
-const Botkit = require('botkit');
-const Store = require('botkit-storage-mongo-updated')({mongoUri: MONGODB_URI});
+const Store = require('botkit-storage-mongo')({mongoUri: MONGODB_URI});
 const app = express();
 
 app.use(bodyParser.json());
@@ -33,7 +31,7 @@ controller.configureSlackApp({
 
 controller
     .createWebhookEndpoints(app)
-    .createOauthEndpoints(app, (err, req, res) => {
+    .createOauthEndpoints(app, (err, _, res) => {
         if (err) return res.status(500).send('ERROR: ' + err);
         res.send('Success!');
     });
@@ -43,15 +41,15 @@ app.listen(PORT, () => {
 });
 
 controller.storage.teams.all((err, teams) => {
-  if (err) throw err;
+    if (err) throw err;
 
-  // connect all teams with bots up to slack!
-  for (let team of teams) {
-    if (team.bot) {
-      const bot = controller.spawn(team);
-      initSlackbot(bot);
+    // connect all teams with bots up to slack!
+    for (const team of teams) {
+        if (team.bot) {
+            const bot = controller.spawn(team);
+            initSlackbot(bot);
+        }
     }
-  }
 });
 
 controller.on('create_bot', (bot: Botkit.Bot, teamConfig) => {
@@ -67,7 +65,7 @@ function initSlackbot(BOT: Botkit.Bot, team?) {
 
         trackBot(bot);
         if (team) {
-            controller.saveTeam(team, (e, id) => {
+            controller.saveTeam(team, e => {
                 if (e) {
                     console.log('Error saving team');
                 }
@@ -88,7 +86,7 @@ function initSlackbot(BOT: Botkit.Bot, team?) {
         app.use('/', routes(bot));
         rootController(controller, USERS);
 
-        app.get('*', (req, res) => {
+        app.get('*', (_, res) => {
             res.send('Invalid Endpoint');
         });
     });

@@ -1,6 +1,5 @@
-if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 const helper = require('sendgrid').mail;
-const sg = require('sendgrid').SendGrid(process.env.SENDGRID_API_KEY);
+const sg = require('sendgrid')(process.env.SENDGRID_API_KEY);
 
 export function fromTemplate(templateName: string, recipient: string): Promise<number> {
     return new Promise((resolve, reject) => {

@@ -1,3 +1,4 @@
+import * as Botkit from 'botkit';
 import * as email from '../../helpers/email';
 import { aliemu as templates } from '../../helpers/constants/templateNames';
 import * as REST from '../../helpers/REST/aliemu';
