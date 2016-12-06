@@ -21,11 +21,7 @@
     "@types/express-serve-static-core" "*"
     "@types/serve-static" "*"
 
-"@types/mime@*":
-  version "0.0.28"
-  resolved "https://registry.yarnpkg.com/@types/mime/-/mime-0.0.28.tgz#57c3a60e773632066c82b0d046bf768c9b401ff6"
-
-"@types/mime@^0.0.29":
+"@types/mime@*", "@types/mime@^0.0.29":
   version "0.0.29"
   resolved "https://registry.yarnpkg.com/@types/mime/-/mime-0.0.29.tgz#fbcfd330573b912ef59eeee14602bface630754b"
 
@@ -335,9 +331,9 @@ botkit-studio-sdk@^1.0.0:
     promise "^7.1.1"
     request "^2.67.0"
 
-botkit@^0.4.2:
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/botkit/-/botkit-0.4.2.tgz#3384d0a6da93f1ffab5bc3f354a2410b83579605"
+botkit@^0.4.3:
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/botkit/-/botkit-0.4.3.tgz#bd381194deccc902ef43af30c536523a10d33b7d"
   dependencies:
     async "^2.0.0-rc.5"
     back "^1.0.1"

@@ -1,4 +1,3 @@
-
 declare namespace SendGrid {
 
     interface TemplateVersion {
@@ -17,6 +16,29 @@ declare namespace SendGrid {
         id: string;
         name: string;
         versions: TemplateVersion[];
+    }
+
+    interface SendGridError extends Error {
+        response: any;
+    }
+
+    interface Request {
+        method: 'GET'|'POST'|'PUT'|'PATCH'|'DELETE';
+        path: string;
+        body?: any;
+    }
+
+    interface Response {
+        body: any;
+        statusCode: number;
+        headers: any;
+    }
+
+    interface Module {
+        API(request: Request): Promise<Response>;
+        API(request: Request, cb: (err: SendGridError, res: Response) => void): void;
+        emptyRequest(): Request;
+        emptyRequest(reqObj: Request): Request;
     }
 
 }
