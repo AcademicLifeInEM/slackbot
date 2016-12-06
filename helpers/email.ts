@@ -11,6 +11,7 @@ export function fromTemplate(templateName: string, recipient: string): Promise<n
                 new helper.Email(recipient),
                 new helper.Content('text/html', template.html_content),
             );
+            mail.addCategory(new helper.Category('slackbot'));
             const request = sg.emptyRequest({
                 method: 'POST',
                 path: '/v3/mail/send',
