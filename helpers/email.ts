@@ -34,10 +34,7 @@ function getTemplate(templateName: string): Promise<SendGrid.TemplateVersion> {
         });
         sg.API(request, (err, res) => {
             if (err || res.statusCode !== 200) reject({code: res.statusCode, message: 'Cannot GET templates'});
-            console.log(res);
-            console.log('\n\n-----------\n\n');
-            console.log(res.body);
-            resolve(JSON.parse(res.body).templates);
+            resolve(res.body.templates);
         });
     })
     .then((templates: SendGrid.Template[]) => {
