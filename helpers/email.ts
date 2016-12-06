@@ -48,7 +48,7 @@ function getTemplate(templateName: string): Promise<SendGrid.TemplateVersion> {
             });
             sg.API(request, (err, res) => {
                 if (err || res.statusCode !== 200) reject({code: res.statusCode, message: 'Cannot GET template version'});
-                resolve(JSON.parse(res.body));
+                resolve(res.body);
             });
         });
     });
