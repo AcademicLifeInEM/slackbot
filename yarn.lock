@@ -8,9 +8,15 @@
   dependencies:
     "@types/express" "*"
 
-"@types/express-serve-static-core@*", "@types/express-serve-static-core@^4.0.29":
+"@types/express-serve-static-core@*":
   version "4.0.39"
   resolved "https://registry.yarnpkg.com/@types/express-serve-static-core/-/express-serve-static-core-4.0.39.tgz#45157f96480d46f254648f45b2c6d70bd9fc9f54"
+  dependencies:
+    "@types/node" "*"
+
+"@types/express-serve-static-core@^4.0.40":
+  version "4.0.40"
+  resolved "https://registry.yarnpkg.com/@types/express-serve-static-core/-/express-serve-static-core-4.0.40.tgz#168e82978bffc81ee7737bc60728d64733a4f37b"
   dependencies:
     "@types/node" "*"
 
@@ -25,9 +31,13 @@
   version "0.0.29"
   resolved "https://registry.yarnpkg.com/@types/mime/-/mime-0.0.29.tgz#fbcfd330573b912ef59eeee14602bface630754b"
 
-"@types/node@*", "@types/node@^4.0.30":
+"@types/node@*":
   version "4.0.30"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-4.0.30.tgz#553f490ed3030311620f88003e7abfc0edcb301e"
+
+"@types/node@^6.0.57":
+  version "6.0.57"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.57.tgz#100f9d4390331297bc3b6160ac4805b46de6e752"
 
 "@types/serve-static@*", "@types/serve-static@^1.7.27":
   version "1.7.31"
@@ -331,9 +341,9 @@ botkit-studio-sdk@^1.0.0:
     promise "^7.1.1"
     request "^2.67.0"
 
-botkit@^0.4.3:
-  version "0.4.3"
-  resolved "https://registry.yarnpkg.com/botkit/-/botkit-0.4.3.tgz#bd381194deccc902ef43af30c536523a10d33b7d"
+botkit@^0.4.7:
+  version "0.4.7"
+  resolved "https://registry.yarnpkg.com/botkit/-/botkit-0.4.7.tgz#db88547a595a916618f3bad85fcb03a763b6c39c"
   dependencies:
     async "^2.0.0-rc.5"
     back "^1.0.1"
@@ -342,6 +352,7 @@ botkit@^0.4.3:
     botkit-studio-sdk "^1.0.0"
     clone "2.0.0"
     command-line-args "^3.0.0"
+    crypto "0.0.3"
     express "^4.13.3"
     https-proxy-agent "^1.0.0"
     jfs "^0.2.6"
@@ -377,6 +388,10 @@ braces@^1.8.2:
 bson@~0.5.7:
   version "0.5.7"
   resolved "https://registry.yarnpkg.com/bson/-/bson-0.5.7.tgz#0d11fe0936c1fee029e11f7063f5d0ab2422ea3e"
+
+bson@~1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/bson/-/bson-1.0.3.tgz#a3b66f724b1673067efc32249e1151205d3ba854"
 
 buffer-equal-constant-time@1.0.1:
   version "1.0.1"
@@ -562,23 +577,27 @@ cryptiles@2.x.x:
   dependencies:
     boom "2.x.x"
 
+crypto@0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/crypto/-/crypto-0.0.3.tgz#470a81b86be4c5ee17acc8207a1f5315ae20dbb0"
+
 dashdash@^1.12.0:
   version "1.14.1"
   resolved "https://registry.yarnpkg.com/dashdash/-/dashdash-1.14.1.tgz#853cfa0f7cbe2fed5de20326b8dd581035f6e2f0"
   dependencies:
     assert-plus "^1.0.0"
 
-debug@*, debug@2, debug@^2.2, debug@^2.2.0, debug@^2.3.2:
-  version "2.3.3"
-  resolved "https://registry.yarnpkg.com/debug/-/debug-2.3.3.tgz#40c453e67e6e13c901ddec317af8986cda9eff8c"
-  dependencies:
-    ms "0.7.2"
-
-debug@2.2.0, debug@~2.2.0:
+debug@*, debug@2.2.0, debug@^2.2.0, debug@~2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.2.0.tgz#f87057e995b1a1f6ae6a4960664137bc56f039da"
   dependencies:
     ms "0.7.1"
+
+debug@2, debug@^2.2, debug@^2.3.2:
+  version "2.3.3"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-2.3.3.tgz#40c453e67e6e13c901ddec317af8986cda9eff8c"
+  dependencies:
+    ms "0.7.2"
 
 decamelize@^1.0.0:
   version "1.2.0"
@@ -1335,12 +1354,27 @@ mongodb-core@2.0.14:
     bson "~0.5.7"
     require_optional "~1.0.0"
 
-mongodb@^2.1.18, mongodb@^2.2.4:
+mongodb-core@2.1.4:
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/mongodb-core/-/mongodb-core-2.1.4.tgz#97f84cb126606c72585e66066ea3a05e9c20dc9b"
+  dependencies:
+    bson "~1.0.3"
+    require_optional "~1.0.0"
+
+mongodb@^2.1.18:
   version "2.2.12"
   resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-2.2.12.tgz#2a86f10228f911e9d6fefdbd7d922188d7b730f9"
   dependencies:
     es6-promise "3.2.1"
     mongodb-core "2.0.14"
+    readable-stream "2.1.5"
+
+mongodb@^2.2.19:
+  version "2.2.19"
+  resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-2.2.19.tgz#9d84745f9369ff301df5a1790cf485375f1df7d7"
+  dependencies:
+    es6-promise "3.2.1"
+    mongodb-core "2.1.4"
     readable-stream "2.1.5"
 
 mongoskin@^2.1.0:
@@ -1538,9 +1572,9 @@ pm2-multimeter@0.1.2:
   dependencies:
     charm "~0.1.1"
 
-pm2@^2.1.6:
-  version "2.1.6"
-  resolved "https://registry.yarnpkg.com/pm2/-/pm2-2.1.6.tgz#13dc1be9e75108be12615903baa647edad46508c"
+pm2@^2.2.3:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/pm2/-/pm2-2.2.3.tgz#303906385349a58a70aa8d7f9ba2e56199eabe7d"
   dependencies:
     async "1.5"
     chalk "^1.1"
@@ -1714,7 +1748,7 @@ repeating@^1.1.0:
   dependencies:
     is-finite "^1.0.0"
 
-request@2.74.x, request@^2.67.0, request@~2.74.0:
+request@2.74.x, request@^2.67.0, request@^2.69.0, request@~2.74.0:
   version "2.74.0"
   resolved "https://registry.yarnpkg.com/request/-/request-2.74.0.tgz#7693ca768bbb0ea5c8ce08c084a45efa05b892ab"
   dependencies:
@@ -1765,7 +1799,7 @@ request@2.78.0:
     tough-cookie "~2.3.0"
     tunnel-agent "~0.4.1"
 
-request@^2.69.0, request@^2.79.0:
+request@^2.79.0:
   version "2.79.0"
   resolved "https://registry.yarnpkg.com/request/-/request-2.79.0.tgz#4dfe5bf6be8b8cdc37fcf93e04b65577722710de"
   dependencies:
@@ -2045,9 +2079,9 @@ typedarray@~0.0.5:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-typescript@^2.1.0-dev.20160720:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.1.1.tgz#41c2b64472f529331b2055c0424862b44ce58d42"
+typescript@^2.1.4:
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.1.4.tgz#b53b69fb841126acb1dd4b397d21daba87572251"
 
 typical@^2.4.2, typical@^2.6.0:
   version "2.6.0"
