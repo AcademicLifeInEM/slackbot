@@ -306,6 +306,6 @@ declare module 'botkit' {
         }
     }
 
-    export function slackbot(config: {debug: boolean, storage: any}): Controller;
+    export function slackbot(config: {debug?: boolean, storage?: any}): Controller;
 
 }

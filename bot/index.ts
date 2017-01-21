@@ -9,7 +9,6 @@ export default function(controller: Botkit.Controller, users: UserList): Botkit.
         });
     });
 
-
     // Appear.in Integration Replacement
     controller.hears(['appear.in'], ['direct_mention'], (bot, message) => {
         const user = users[message.user].name;

@@ -40,12 +40,11 @@ export async function dashboardAccess(msg: Botkit.ActionMessage): Promise<Botkit
 
 
 function success(msg: Botkit.ActionMessage, attachment: Slack.Attachment): Botkit.MessageWithContext {
-    return Object.assign({}, msg.original_message, {
+    return {
+        ...msg.original_message,
         attachments: [
-            Object.assign({}, msg.original_message.attachments[0], {
-                actions: [],
-            }),
-            attachment,
+            { ...msg.original_message.attachments[0], actions: [] },
+             attachment,
         ],
-    });
+    };
 }
