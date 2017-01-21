@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 5000;
 // const MONGODB_URI = process.env.MONGODB_URI;
 const TOKEN = process.env.SLACK_TOKEN;
 // const BOTS_RUNNING = {};
+
 const CHANNELS = {};
 const USERS = {};
 
