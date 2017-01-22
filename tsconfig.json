@@ -27,45 +27,5 @@
         "node_modules/@types/**/*index.d.ts"
     ],
     "compileOnSave": false,
-    "buildOnSave": false,
-    "atom": {
-        "rewriteTsconfig": true
-    },
-    "files": [
-        "index.ts",
-        "bot/index.ts",
-        "bot/interactiveCallbacks/#aliemu.ts",
-        "bot/interactiveCallbacks/index.ts",
-        "helpers/authentication.ts",
-        "helpers/constants/templateNames.ts",
-        "helpers/email.ts",
-        "helpers/REST/aliemu.ts",
-        "helpers/sharedHandlers.ts",
-        "routes/airseries-pro/index.ts",
-        "routes/airseries-pro/messages.ts",
-        "routes/airseries/index.ts",
-        "routes/airseries/messages.ts",
-        "routes/aliemcards/index.ts",
-        "routes/aliemcards/messages.ts",
-        "routes/aliemu/hooks.ts",
-        "routes/aliemu/index.ts",
-        "routes/aliemu/messages.ts",
-        "routes/capsules/index.ts",
-        "routes/capsules/messages.ts",
-        "routes/index.ts",
-        "routes/newsubmissions/hooks.ts",
-        "routes/newsubmissions/index.ts",
-        "types/aliem.d.ts",
-        "types/botkit.d.ts",
-        "types/sendgrid.d.ts",
-        "types/slack.d.ts",
-        "types/wordpress.d.ts",
-        "node_modules/@types/body-parser/index.d.ts",
-        "node_modules/@types/express-serve-static-core/index.d.ts",
-        "node_modules/@types/express-serve-static-core/node_modules/@types/node/index.d.ts",
-        "node_modules/@types/express/index.d.ts",
-        "node_modules/@types/mime/index.d.ts",
-        "node_modules/@types/node/index.d.ts",
-        "node_modules/@types/serve-static/index.d.ts"
-    ]
+    "buildOnSave": false
 }

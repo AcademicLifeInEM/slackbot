@@ -5,8 +5,8 @@ import routes from './routes';
 import rootController from './bot';
 
 const PORT = process.env.PORT || 5000;
-// const CLIENT_ID = process.env.SLACK_CLIENT_ID;
-// const CLIENT_SECRET = process.env.SLACK_CLIENT_SECRET;
+const CLIENT_ID = process.env.SLACK_CLIENT_ID;
+const CLIENT_SECRET = process.env.SLACK_CLIENT_SECRET;
 // const MONGODB_URI = process.env.MONGODB_URI;
 const TOKEN = process.env.SLACK_TOKEN;
 // const BOTS_RUNNING = {};
@@ -25,11 +25,11 @@ const controller: Botkit.Controller = Botkit.slackbot({
     // storage: Store,
 });
 
-// controller.configureSlackApp({
-//     clientId: CLIENT_ID,
-//     clientSecret: CLIENT_SECRET,
-//     scopes: ['bot'],
-// });
+controller.configureSlackApp({
+    clientId: CLIENT_ID,
+    clientSecret: CLIENT_SECRET,
+    scopes: ['bot'],
+});
 
 controller
     .createWebhookEndpoints(app)
