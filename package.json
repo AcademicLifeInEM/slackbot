@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "heroku": "pm2 start --no-daemon process.yml",
+    "start": "npm run build && node ./dist/index.js",
     "dev": "npm run build && torus run node ./dist/index.js",
     "build": "./node_modules/.bin/tsc -p ."
   },
@@ -35,7 +36,6 @@
     "botkit-storage-mongo": "^1.0.4",
     "express": "^4.14.0",
     "mongodb": "^2.2.21",
-    "pm2": "^2.2.3",
     "sendgrid": "^4.7.1",
     "sendgrid-rest": "^2.2.1",
     "typescript": "^2.1.5",
