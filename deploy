@@ -11,4 +11,6 @@ now \
 
 deployment_id=$(now ls aliem-slackbot | tail -n 2 | awk '{print $1}')
 
-now ln "$deployment_id" aliem-slackbot
+now ln \
+    -t "$NOW_TOKEN" \
+    "$deployment_id" aliem-slackbot
