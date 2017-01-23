@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 const controller: Botkit.Controller = Botkit.slackbot({
-    debug: true,
+    debug: process.env.NODE_ENV !== 'production',
 });
 
 controller.spawn({ token: TOKEN }).startRTM((err, bot, payload) => {

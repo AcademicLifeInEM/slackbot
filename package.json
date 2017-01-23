@@ -5,17 +5,14 @@
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku": "pm2 start --no-daemon process.yml",
-    "start": "npm run build && node ./dist/index.js",
+    "start": "NODE_ENV=production node ./dist/index.js",
+    "deploy": "torus run ./deploy",
     "dev": "npm run build && torus run node ./dist/index.js",
     "build": "./node_modules/.bin/tsc -p ."
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AcademicLifeInEM/slackbot.git"
-  },
-  "engines": {
-    "node": "7.2.0"
   },
   "keywords": [],
   "author": "Derek P Sifford",

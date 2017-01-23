@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+now \
+    -e ALIEM_API_KEY="$ALIEM_API_KEY" \
+    -e ALIEMU_REST_AUTH="$ALIEMU_REST_AUTH" \
+    -e SENDGRID_API_KEY="$SENDGRID_API_KEY" \
+    -e SLACK_TOKEN="$SLACK_TOKEN" $(pwd)
