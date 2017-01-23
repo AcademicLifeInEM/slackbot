@@ -34,7 +34,7 @@ controller.spawn({ token: TOKEN }).startRTM((err, bot, payload) => {
     rootController(controller, USERS);
 
     app.get('*', (_, res) => {
-        res.send('Invalid Endpoint');
+        res.redirect('https://www.aliem.com');
     });
 });
 

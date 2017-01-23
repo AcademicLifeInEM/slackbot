@@ -1,6 +1,14 @@
 #!/usr/bin/env bash
+now rm -y aliem-slackbot
+
 now \
+    -t "$NOW_TOKEN" \
+    -n aliem-slackbot \
     -e ALIEM_API_KEY="$ALIEM_API_KEY" \
     -e ALIEMU_REST_AUTH="$ALIEMU_REST_AUTH" \
     -e SENDGRID_API_KEY="$SENDGRID_API_KEY" \
-    -e SLACK_TOKEN="$SLACK_TOKEN" $(pwd)
+    -e SLACK_TOKEN="$SLACK_TOKEN" "$(pwd)"
+
+deployment_id=$(now ls aliem-slackbot | tail -n 2 | awk '{print $1}')
+
+now ln "$deployment_id" aliem-slackbot
