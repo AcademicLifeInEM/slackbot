@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 now rm -y aliem-slackbot
 
-now \
+now -C \
     -t "$NOW_TOKEN" \
     -n aliem-slackbot \
     -e ALIEM_API_KEY="$ALIEM_API_KEY" \
@@ -11,6 +11,6 @@ now \
 
 deployment_id=$(now ls aliem-slackbot | tail -n 2 | awk '{print $1}')
 
-now ln \
+now ln -C \
     -t "$NOW_TOKEN" \
     "$deployment_id" aliem-slackbot
