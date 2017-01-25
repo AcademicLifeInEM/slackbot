@@ -4,6 +4,7 @@ import * as aliemu from './#aliemu';
 export default async function interactiveMessageCallbacks(bot: Botkit.Bot, msg: Botkit.ActionMessage) {
 
     let response: Botkit.MessageWithContext;
+    console.log('callback id: ', msg.callback_id);
 
     try {
         switch (msg.callback_id) {

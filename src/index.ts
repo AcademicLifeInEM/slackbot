@@ -19,6 +19,8 @@ const controller: Botkit.Controller = Botkit.slackbot({
     debug: process.env.NODE_ENV !== 'production',
 });
 
+controller.createWebhookEndpoints(app);
+
 controller.spawn({ token: TOKEN }).startRTM((err, bot, payload) => {
     if (err) return console.error(err);
 

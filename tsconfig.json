@@ -10,6 +10,7 @@
         "declaration": false,
         "noImplicitAny": false,
         "noImplicitUseStrict": false,
+        "rootDir": "./src",
         "removeComments": true,
         "noLib": false,
         "preserveConstEnums": true,

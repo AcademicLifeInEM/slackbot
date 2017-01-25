@@ -139,7 +139,7 @@ declare module 'botkit' {
         on(a: any, b: any): any;
         receiveMessage(): any;
         saveTeam(teamConfig, callback: (err, id) => void): any;
-        setupWebserver(): any;
+        setupWebserver(port: number, cb: (err: Error, server: Express.Application) => void): void;
         shutdown(): any;
         spawn(): any;
         startTask(): any;
