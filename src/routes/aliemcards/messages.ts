@@ -8,37 +8,33 @@ export default function route(bot: Botkit.Bot): express.Router {
 
     router.post('/contact-form', requireAuthentication, (req, res) => {
         const { name, email, message } = req.body.data;
-        if (!name || !email || !message) return res.sendStatus(400);
+        if (!name || !email || !message) { return res.sendStatus(400); }
         bot.say({
-            channel: CHANNEL_ID,
             attachments: [
                 {
                     fallback: `Contact form message from ${name}: ${message} -- Email: ${email}`,
-                    title: 'Message Received from Contact Us Form',
                     fields: [
                         {
+                            short: true,
                             title: 'From',
                             value: `${name}`,
-                            short: true,
                         },
                         {
+                            short: true,
                             title: 'Email Address',
                             value: `<mailto:${email}|${email}>`,
-                            short: true,
                         },
                         {
+                            short: false,
                             title: 'Message',
                             value: `${message}`,
-                            short: false,
                         },
                     ],
+                    title: 'Message Received from Contact Us Form',
                 },
             ],
-        } as Botkit.MessageWithoutContext, (err) => {
-            console.log(err);
-            if (err) return res.sendStatus(503);
-            res.sendStatus(200);
-        });
+            channel: CHANNEL_ID,
+        } as Botkit.MessageWithoutContext, err => err ? res.sendStatus(503) : res.sendStatus(200));
     });
 
     return router;

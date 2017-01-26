@@ -59,8 +59,6 @@ declare namespace Slack {
 
     interface API {
         api_url: 'https://slack.com/api/';
-        callAPI();
-        callAPIWithoutToken();
         auth: {
             test();
         };
@@ -162,6 +160,8 @@ declare namespace Slack {
             setActive();
             setPresence();
         };
+        callAPI();
+        callAPIWithoutToken();
     }
 
     interface User {
@@ -210,9 +210,17 @@ declare namespace Slack {
         has_2fa?: boolean;
     }
 
+    interface Message {
+        text?: string;
+        attachments?: Attachment[];
+        response_type?: 'in_channel'|'ephemeral';
+        replace_original?: boolean;
+        delete_original?: boolean;
+    }
+
     interface Attachment {
         /** Required plain-text summary of the attachment */
-        fallback?: string;
+        fallback: string;
         /** Hex color string (including #) OR "good", "warning", or "danger" */
         color?: string;
         /** ID for callback (if using message buttons) */
@@ -242,16 +250,19 @@ declare namespace Slack {
          */
         text?: string;
 
-        fields?: {
+        fields?: Array<{
             /** Shown as a bold heading above the value text. Cannot contain markup */
             title: string;
             /** The text value of the field. It may contain standard message markup. May be multiline */
             value: string;
-            /** An optional flag indicating whether the value is short enough to be displayed side-by-side with other values. */
+            /**
+             * An optional flag indicating whether the value is short
+             * enough to be displayed side-by-side with other values.
+             */
             short: boolean;
-        }[];
+        }>;
 
-        actions?: {
+        actions?: Array<{
             /**
              * Provide a string to give this specific action a name. The name will be returned
              *   to your Action URL along with the message's callback_id when this action is invoked.
@@ -259,7 +270,10 @@ declare namespace Slack {
              *   only one of them can be in a triggered state.
              */
             name: string;
-            /** The user-facing label for the message button representing this action. Cannot contain markup. Best to keep these short and decisive. */
+            /**
+             * The user-facing label for the message button representing this action.
+             * Cannot contain markup. Best to keep these short and decisive.
+             */
             text: string;
             /** Provide nothing but button here. There are no other types of actions today. */
             type: 'button';
@@ -281,7 +295,7 @@ declare namespace Slack {
                 ok_text: string;
                 dismiss_text: string;
             };
-        }[];
+        }>;
 
         /** URL to an image file that will be displayed inside a message attachment. GIF, JPEG, PNG, or BMP */
         image_url?: string;
@@ -304,7 +318,7 @@ declare namespace Slack {
         ts?: number;
 
         /** Where to display markdown? */
-        mrkdwn_in?: ('text'|'pretext'|'fields')[];
+        mrkdwn_in?: Array<'text'|'pretext'|'fields'>;
     }
 
     interface Identity {

@@ -5,6 +5,7 @@
   "main": "./src/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "tslint -e \"node_modules/**/*\" \"**/*.+(ts|tsx)\" -c \"./tslint.json\" -t codeFrame",
     "start": "NODE_ENV=production node ./dist/index.js",
     "deploy": "torus run ./deploy",
     "dev": "npm run build && torus run node ./dist/index.js",
@@ -37,6 +38,6 @@
     "unirest": "^0.5.0"
   },
   "devDependencies": {
-    "tslint": "^4.3.1"
+    "tslint": "^4.4.2"
   }
 }

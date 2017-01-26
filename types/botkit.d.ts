@@ -1,13 +1,15 @@
 declare module 'botkit' {
 
     type MessageWithContext = Msg.AttachmentMessage|Msg.TextMessage|(Msg.AttachmentMessage & Msg.TextMessage);
-    type MessageWithoutContext = Msg.AttachmentMessageNoContext|Msg.TextMessageNoContext|(Msg.AttachmentMessageNoContext & Msg.TextMessageNoContext);
+    type MessageWithoutContext =
+        Msg.AttachmentMessageNoContext
+        | Msg.TextMessageNoContext
+        | (Msg.AttachmentMessageNoContext & Msg.TextMessageNoContext);
     type ActionMessage = Msg.ActionMessage;
-
+    type MessageCallback = (bot: Bot, msg: Message) => void;
     type ConvoCallback = (error: Error, conversation: Conversation) => void;
 
     interface Bot {
-
         api: Slack.API;
         config: Config;
         identity: Slack.Identity;
@@ -26,18 +28,18 @@ declare module 'botkit' {
         startPrivateConversation(): void;
         startConversation(src: Message|ActionMessage, callback: ConvoCallback): void;
         send(): void;
-        replyInteractive(src: ActionMessage, reply: MessageWithContext): void;
-        replyPublic(src: Message|ActionMessage, reply: string|MessageWithContext, callback?: Function): void;
-        replyPublicDelayed(src: Message|ActionMessage, reply: string|MessageWithContext, callback?: Function): void;
-        replyPrivate(src: Message|ActionMessage, reply: string|MessageWithContext, callback?: Function): void;
-        replyPrivateDelayed(src: Message|ActionMessage, reply: string|MessageWithContext, callback?: Function): void;
+        replyInteractive(src: ActionMessage, reply: Slack.Message): void;
+        replyPublic(src: Message|ActionMessage, reply: string|Slack.Message, callback?: Function): void;
+        replyPublicDelayed(src: Message|ActionMessage, reply: string|Slack.Message, callback?: Function): void;
+        replyPrivate(src: Message|ActionMessage, reply: string|Slack.Message, callback?: Function): void;
+        replyPrivateDelayed(src: Message|ActionMessage, reply: string|Slack.Message, callback?: Function): void;
         /**
          * Makes the bot appear as if it is typing.
          * @param message The current message context.
          */
         startTyping(src: Message): void;
         /** Replies with message after typing delay */
-        replyWithTyping(src: Message|ActionMessage, reply: string|MessageWithContext, cb?: Function): void;
+        replyWithTyping(src: Message|ActionMessage, reply: string|Slack.Message, cb?: Function): void;
         findConversation(): void;
         say(msg: MessageWithoutContext, callback?: (err: Error, res: any) => void): void;
 
@@ -47,10 +49,10 @@ declare module 'botkit' {
          * @param reply    String or Object Outgoing response
          * @param callback Optional callback
          */
-        reply(message: Message|ActionMessage, reply: string|MessageWithContext, callback?: (Error, Object) => void): void;
+        reply(message: Message|ActionMessage, reply: string|Slack.Message, callback?: (Error, Object) => void): void;
 
         /** Starts the Slack Realtime Messaging service */
-        startRTM(callback: (err: Error, bot: Bot, payload: Slack.RTMPayload) => void): void;
+        startRTM(callback?: (err: Error, bot: Bot, payload: Slack.RTMPayload) => void): this;
     }
 
     interface Controller {
@@ -123,7 +125,6 @@ declare module 'botkit' {
             log(): any;
         };
 
-
         changeEars(): any;
         configureSlackApp(config: Slack.AppConfig): void;
         createHomepageEndpoint(): any;
@@ -141,25 +142,30 @@ declare module 'botkit' {
         saveTeam(teamConfig, callback: (err, id) => void): any;
         setupWebserver(port: number, cb: (err: Error, server: Express.Application) => void): void;
         shutdown(): any;
-        spawn(): any;
+        /** Used to spawn a bot instance */
+        spawn(config?: Config): Bot;
         startTask(): any;
         startTicking(): any;
         tick(): any;
         trigger(): any;
         worker(): any;
 
-        /** Used to spawn a bot instance */
-        spawn(config: Config): Bot;
-
         /**
          * Botkit event handler for messages.
-         * @param patterns   An array or a comma separated string containing a list of regular expressions to match
-         * @param types      An array or a comma separated string of the message events in which to look for the patterns
-         * @param middleware Optional function to redefine how patterns are matched. see Botkit Middleware
+         * @param patterns   An array or a comma separated string containing a list
+         *                      of regular expressions to match
+         * @param types      An array or a comma separated string of the message events
+         *                      in which to look for the patterns
+         * @param middleware Optional function to redefine how patterns are matched.
          * @param callback   function that receives a message object.
          */
-        hears(patterns: string|(string|RegExp)[], types: Slack.MessageEvent[], callback: (bot: Bot, message: Message) => void): void;
-        hears(patterns: string|(string|RegExp)[], types: Slack.MessageEvent[], middleware: Function, callback: (bot: Bot, message: Message) => void): void;
+        hears(patterns: Array<String|RegExp>, types: Slack.MessageEvent[], cb: MessageCallback): void;
+        hears(
+            patterns: Array<String|RegExp>,
+            types: Slack.MessageEvent[],
+            middleware: Function,
+            cb: MessageCallback,
+        ): void;
 
     }
 
@@ -204,10 +210,10 @@ declare module 'botkit' {
             channel: string;
         }
         interface ActionMessage extends Basic {
-            actions: {
+            actions: Array<{
                 name: string;
                 value: string;
-            }[];
+            }>;
             callback_id: string;
             action_ts: string;
             attachment_id: string;
@@ -278,7 +284,7 @@ declare module 'botkit' {
 
     namespace Convo {
         type CallbackFunction = (response: Response, convo: Conversation) => void;
-        type CallbackObj = {
+        interface CallbackObj {
             pattern: RegExp|string;
             callback: (response: Response, convo: Conversation) => void;
         }

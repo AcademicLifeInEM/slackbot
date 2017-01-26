@@ -1,55 +1,70 @@
-const helper = require('sendgrid').mail;
-const sg: SendGrid.Module = require('sendgrid')(process.env.SENDGRID_API_KEY);
+import { mail as helper} from 'sendgrid';
+import * as sendGrid from 'sendgrid';
 
-export function fromTemplate(templateName: string, recipient: string): Promise<number> {
-    return new Promise((resolve, reject) => {
-        getTemplate(templateName)
-        .then(template => {
-            const mail = new helper.Mail(
-                new helper.Email('admin@aliemu.com'),
-                template.subject,
-                new helper.Email(recipient),
-                new helper.Content('text/html', template.html_content),
-            );
-            mail.addCategory(new helper.Category('slackbot'));
-            const request = sg.emptyRequest({
-                method: 'POST',
-                path: '/v3/mail/send',
-                body: mail.toJSON(),
-            });
-            sg.API(request, (err, res) => {
-                if (err || res.statusCode !== 202) reject({code: res.statusCode, message: 'Email failed to send'});
-                resolve(res.statusCode);
-            });
-        })
-        .catch((e: BotError) => reject(e));
-    });
+const sg = sendGrid(process.env.SENDGRID_API_KEY);
+
+interface TemplateVersion {
+    id: string;
+    template_id: string;
+    active: number;
+    name: string;
+    html_content: string;
+    plain_content: string;
+    subject: string;
+    /** Format: YYYY-MM-DD HH:MM:SS */
+    updated_at: string;
 }
 
-function getTemplate(templateName: string): Promise<SendGrid.TemplateVersion> {
-    return new Promise<SendGrid.Template[]>((resolve, reject) => {
-        const request = sg.emptyRequest({
-            method: 'GET',
-            path: '/v3/templates',
-        });
-        sg.API(request, (err, res) => {
-            if (err || res.statusCode !== 200) reject({code: res.statusCode, message: 'Cannot GET templates'});
-            resolve(res.body.templates);
-        });
-    })
-    .then((templates: SendGrid.Template[]) => {
-        return new Promise<SendGrid.TemplateVersion>((resolve, reject) => {
-            const template = templates.find(t => t.name === templateName);
-            if (!template) reject({code: 404, message: `Cannot locate template named ${templateName}`});
+interface Template {
+    id: string;
+    name: string;
+    versions: TemplateVersion[];
+}
 
-            const request = sg.emptyRequest({
-                method: 'GET',
-                path: `/v3/templates/${template.id}/versions/${template.versions[0].id}`,
-            });
-            sg.API(request, (err, res) => {
-                if (err || res.statusCode !== 200) reject({code: res.statusCode, message: 'Cannot GET template version'});
-                resolve(res.body);
-            });
-        });
-    });
+interface AvailableTemplates {
+    dashboard_approved: string;
+    dashboard_denied: string;
+}
+
+const availableTemplates: AvailableTemplates = {
+    dashboard_approved: 'faa155e8-c7a2-4e0d-9d8b-8963be230cf1',
+    dashboard_denied: 'f4eef738-dd9f-433d-a5e1-9a4107dda5d8',
+};
+
+export async function fromTemplate(templateName: keyof AvailableTemplates, recipient: string): Promise<number> {
+    const template = await getTemplate(templateName);
+    const mail = new helper.Mail(
+        new helper.Email('admin@aliemu.com'),
+        template.subject,
+        new helper.Email(recipient),
+        new helper.Content('text/html', template.html_content),
+    );
+    mail.addCategory(new helper.Category('slackbot'));
+    const request = sg.emptyRequest({
+        body: mail.toJSON(),
+        method: 'POST',
+        path: '/v3/mail/send',
+    } as any); // FIXME
+    const response = await sg.API(request);
+    return response.statusCode;
+}
+
+async function getTemplate(templateName: keyof AvailableTemplates): Promise<TemplateVersion> {
+    const id = availableTemplates[templateName];
+    const request = sg.emptyRequest({
+        method: 'GET',
+        path: `/v3/templates/${id}`,
+    }as any); // FIXME
+    try {
+        const response = await sg.API(request);
+        if (response.statusCode !== 200) {
+            throw new Error(`Received a non-200 status code from SendGrid: ${response.statusCode}`);
+        }
+        const template: Template = (response as any).body;
+        return template.versions[0];
+    }
+    catch (e) {
+        console.error(`ERROR in getTemplate: ${e.message}`);
+        throw e;
+    }
 }

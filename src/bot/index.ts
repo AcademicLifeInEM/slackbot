@@ -1,83 +1,28 @@
 import * as Botkit from 'botkit';
-import interactiveCallbacks from './interactiveCallbacks/';
+import { ConversationListener } from '../core/conversationListener';
+import InteractiveMessageDispatcher from '../core/interactiveMessageDispatcher';
 
-export default function(controller: Botkit.Controller, users: UserList): Botkit.Controller {
-    controller.hears([/hello/i, /hi/i, /hey/i], ['direct_mention', 'direct_message'], (bot, message) => {
-        bot.api.users.info({ user: message.user }, (err, res) => {
-            if (err) return;
-            bot.reply(message, `Testing! Hello ${res.user.real_name}`);
-        });
-    });
+import {
+    appearIn,
+    counter,
+    hello,
+} from './conversations/';
 
-    // Appear.in Integration Replacement
-    controller.hears(['appear.in'], ['direct_mention'], (bot, message) => {
-        const user = users[message.user].name;
+import {
+    dashboardAccess,
+} from './interactiveCallbacks/';
 
-        bot.startConversation(message, (_, convo) => {
-            convo.ask('What would you like the room called?', (resp, c) => {
-                const room = resp.text.replace(/\s/g, '-');
-                startRoom(room);
-                c.next();
-            });
-        });
+export default function(controller: Botkit.Controller): void {
+    const interactiveDispatcher = new InteractiveMessageDispatcher();
+    const convoListener = new ConversationListener(controller, interactiveDispatcher);
 
-        function startRoom(room: string) {
-            const msg: Botkit.MessageWithContext = {
-                attachments: [
-                    {
-                        fallback: `${user} has started a video conference in room: <https://appear.in/${room}|${room}>`,
-                        color: '#fa4668',
-                        author_name: 'appear.in',
-                        author_icon: 'https://a.slack-edge.com/2fac/plugins/appearin/assets/service_48.png',
-                        text: `${user} has started a video conference in room: <https://appear.in/${room}|${room}>`,
-                    },
-                ],
-            };
-            bot.reply(message, msg);
-        };
-    });
+    convoListener
+        .use(appearIn)
+        .use(counter)
+        .use(hello);
 
-    controller.hears(['counter'], ['direct_mention', 'direct_message'], (bot, message) => {
-        bot.reply(message, {
-            attachments: [
-                {
-                    title: 'Simple Counter',
-                    text: '0',
-                    callback_id: '1',
-                    attachment_type: 'default',
-                    actions: [
-                        {
-                            name: 'counter',
-                            text: 'Increment',
-                            value: '1',
-                            type: 'button',
-                        },
-                        {
-                            name: 'counter',
-                            text: 'Decrement',
-                            value: '-1',
-                            type: 'button',
-                        },
-                        {
-                            name: 'destroy',
-                            text: 'Destroy Counter',
-                            style: 'danger',
-                            value: 'destroy',
-                            type: 'button',
-                            confirm: {
-                                title: 'Are you sure?',
-                                text: 'This will do something!',
-                                ok_text: 'Yes',
-                                dismiss_text: 'No',
-                            },
-                        },
-                    ],
-                },
-            ],
-        });
-    });
+    interactiveDispatcher
+        .use(dashboardAccess);
 
-    controller.on('interactive_message_callback', interactiveCallbacks);
-
-    return controller;
+    controller.on('interactive_message_callback', interactiveDispatcher.handle);
 }

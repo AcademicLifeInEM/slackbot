@@ -1,46 +1,26 @@
+import * as bodyParser from 'body-parser';
 import * as Botkit from 'botkit';
 import * as express from 'express';
-import * as bodyParser from 'body-parser';
-import routes from './routes';
 import rootController from './bot';
+import routes from './routes';
 
 const PORT = process.env.PORT || 5000;
 const TOKEN = process.env.SLACK_TOKEN;
-
-const CHANNELS = {};
-const USERS = {};
-
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-const controller: Botkit.Controller = Botkit.slackbot({
-    debug: process.env.NODE_ENV !== 'production',
-});
+const controller: Botkit.Controller = Botkit.slackbot({});
+const bot = controller.spawn({ token: TOKEN }).startRTM();
 
 controller.createWebhookEndpoints(app);
 
-controller.spawn({ token: TOKEN }).startRTM((err, bot, payload) => {
-    if (err) return console.error(err);
+rootController(controller);
 
-    payload.channels
-        .filter(c => !c.is_archived)
-        .forEach(c => CHANNELS[c.name] = c);
-
-    payload.users
-        .filter(u => !u.deleted)
-        .forEach(u => USERS[u.id] = u);
-
-    app.use('/', routes(bot));
-    rootController(controller, USERS);
-
-    app.get('*', (_, res) => {
-        res.redirect('https://www.aliem.com');
-    });
+app.use('/', routes(bot));
+app.get('*', (_, res) => {
+    res.redirect('https://www.aliem.com');
 });
 
-app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}`);
-});
-
+app.listen(PORT);
