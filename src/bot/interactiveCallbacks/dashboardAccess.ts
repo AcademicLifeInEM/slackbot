@@ -24,7 +24,6 @@ async function handler(msg: Botkit.ActionMessage): Promise<Slack.Message> {
             await REST.update.user(userID, { roles: ['educator_access'] });
             await email.fromTemplate('dashboard_approved', recipientEmail);
             response.attachments = [
-                response.attachments[0],
                 {
                     color: 'good',
                     fallback: 'Access granted and email sent.',
@@ -36,7 +35,6 @@ async function handler(msg: Botkit.ActionMessage): Promise<Slack.Message> {
         case 'deny': {
             await email.fromTemplate('dashboard_denied', recipientEmail);
             response.attachments = [
-                response.attachments[0],
                 {
                     color: 'danger',
                     fallback: 'Rejection email sent',
