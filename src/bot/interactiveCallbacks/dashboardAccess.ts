@@ -1,6 +1,6 @@
 import * as Botkit from 'botkit';
-import * as email from '../../helpers/email';
-import * as REST from '../../helpers/REST/aliemu';
+import * as email from '../../lib/email';
+import * as REST from '../../lib/REST/aliemu';
 
 async function handler(msg: Botkit.ActionMessage): Promise<Slack.Message> {
     const response: Slack.Message = {...msg.original_message};

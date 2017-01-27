@@ -15,12 +15,8 @@ const controller: Botkit.Controller = Botkit.slackbot({});
 const bot = controller.spawn({ token: TOKEN }).startRTM();
 
 controller.createWebhookEndpoints(app);
-
 rootController(controller);
 
 app.use('/', routes(bot));
-app.get('*', (_, res) => {
-    res.redirect('https://www.aliem.com');
-});
-
+app.get('*', (_, res) => res.redirect('https://www.aliem.com'));
 app.listen(PORT);

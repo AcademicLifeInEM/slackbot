@@ -1,6 +1,6 @@
 import * as Botkit from 'botkit';
 import * as express from 'express';
-import { requireAuthentication } from '../../helpers/authentication';
+import { requireAuthentication } from '../../lib/middleware';
 const router = express.Router();
 const CHANNEL_ID = 'C0976C2TZ'; // #aliemcards
 

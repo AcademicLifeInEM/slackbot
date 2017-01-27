@@ -1,7 +1,7 @@
 import * as Botkit from 'botkit';
 import { SingleListener } from '../../core/conversationListener';
 
-export const appearIn: SingleListener = function(this: Botkit.Controller) {
+export const appearIn: SingleListener = function(this: Botkit.Controller): void {
     this.hears(['appear.in'], ['direct_mention'], (bot, message) => {
         return new Promise<string>((resolve, reject) => {
             bot.api.users.info({ user: message.user }, (err, data) => {

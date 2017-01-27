@@ -12,7 +12,12 @@ import {
     dashboardAccess,
 } from './interactiveCallbacks/';
 
-export default function(controller: Botkit.Controller): void {
+/**
+ * The root controller for the entire slackbot. All integrations must be
+ * imported and used here.
+ * @param controller    The main controller object for the slackbot.
+ */
+export default function rootController(controller: Botkit.Controller): void {
     const interactiveDispatcher = new InteractiveMessageDispatcher();
     const convoListener = new ConversationListener(controller, interactiveDispatcher);
 
