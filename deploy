@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-now rm -y aliem-slackbot
+now -t "$NOW_TOKEN" rm -y aliem-slackbot
 
 now -C \
     -t "$NOW_TOKEN" \
