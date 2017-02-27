@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
-now -t "$NOW_TOKEN" rm -y aliem-slackbot
+
+if [[ "$(now -t "$NOW_TOKEN" ls aliem-slackbot | awk '{print $2}')" != '0' ]]; then
+    now -t "$NOW_TOKEN" rm -y aliem-slackbot
+fi
 
 now -C \
     -t "$NOW_TOKEN" \
