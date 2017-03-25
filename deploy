@@ -7,6 +7,7 @@ fi
 now -C \
     -t "$NOW_TOKEN" \
     -n aliem-slackbot \
+    -e ADMIN_SLACK_TOKEN="$ADMIN_SLACK_TOKEN" \
     -e ALIEM_API_KEY="$ALIEM_API_KEY" \
     -e ALIEMU_REST_AUTH="$ALIEMU_REST_AUTH" \
     -e SENDGRID_API_KEY="$SENDGRID_API_KEY" \
