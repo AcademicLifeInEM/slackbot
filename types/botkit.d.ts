@@ -272,7 +272,7 @@ declare module 'botkit' {
         stop(): void;
         tick(): void;
         trigger(): void;
-        say(): void;
+        say(message: string, cb?: (err: BotError, resp: Response) => void): void;
         ask(message: string, cb: Convo.Callback): void;
         next(): void;
     }
@@ -285,7 +285,7 @@ declare module 'botkit' {
     namespace Convo {
         type CallbackFunction = (response: Response, convo: Conversation) => void;
         interface CallbackObj {
-            pattern: RegExp|string;
+            pattern: RegExp|string|RegExpConstructor;
             callback: (response: Response, convo: Conversation) => void;
         }
         type Callback = CallbackFunction|CallbackObj[];

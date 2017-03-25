@@ -6,6 +6,7 @@ import {
     appearIn,
     counter,
     hello,
+    pruneFiles,
 } from './conversations/';
 
 import {
@@ -24,7 +25,8 @@ export default function rootController(controller: Botkit.Controller): void {
     convoListener
         .use(appearIn)
         .use(counter)
-        .use(hello);
+        .use(hello)
+        .use(pruneFiles);
 
     interactiveDispatcher
         .use(dashboardAccess);

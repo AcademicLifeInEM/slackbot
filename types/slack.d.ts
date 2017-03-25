@@ -90,9 +90,9 @@ declare namespace Slack {
             list();
         };
         files: {
-            delete();
+            delete(args: object, cb: (err: Error, resp) => void);
             info();
-            list();
+            list(args: object, cb: (err: Error, resp) => void);
             upload();
         };
         groups: {
