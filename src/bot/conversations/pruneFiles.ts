@@ -22,11 +22,6 @@ export const pruneFiles: SingleListener = function(this: Botkit.Controller) {
 };
 
 function deleteOldFiles(this: Botkit.Bot, _: Botkit.Convo.Response, convo: Botkit.Conversation): Promise<{}> {
-    let minutes = 1;
-    const logMsg = setInterval(() => {
-        convo.say(`Working.... Elapsed Time: ${minutes} minute.`);
-        minutes += 1;
-    }, 60000);
     const d = new Date();
     d.setFullYear(d.getFullYear() - 1);
     const unixDate = Math.floor(d.valueOf() / 1000);
@@ -52,7 +47,6 @@ function deleteOldFiles(this: Botkit.Bot, _: Botkit.Convo.Response, convo: Botki
             }));
         }
         return Promise.all(promises).then(data => {
-            clearInterval(logMsg);
             if (promises.length === 0) {
                 convo.say('All old files have been deleted successfully.');
             }
