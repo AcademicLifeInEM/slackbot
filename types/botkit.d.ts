@@ -147,7 +147,8 @@ declare module 'botkit' {
         startTask(): any;
         startTicking(): any;
         tick(): any;
-        trigger(): any;
+        // FIXME: data needs better typing
+        trigger(eventName: string, data: any[]): any;
         worker(): any;
 
         /**
@@ -312,6 +313,6 @@ declare module 'botkit' {
         }
     }
 
-    export function slackbot(config: {debug?: boolean, storage?: any}): Controller;
+    export function slackbot(config: {debug?: boolean, storage?: any, interactive_replies?: boolean }): Controller;
 
 }
