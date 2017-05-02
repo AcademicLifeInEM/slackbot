@@ -23,21 +23,21 @@
   },
   "homepage": "https://github.com/aliemteam/slackbot#readme",
   "dependencies": {
-    "@types/body-parser": "^1.16.1",
+    "@types/body-parser": "^1.16.3",
     "@types/express": "^4.0.35",
     "@types/express-serve-static-core": "^4.0.40",
     "@types/mime": "^0.0.29",
-    "@types/node": "^7.0.4",
+    "@types/node": "^7.0.15",
     "@types/serve-static": "^1.7.27",
     "body-parser": "^1.16.0",
-    "botkit": "^0.5.2",
+    "botkit": "^0.5.4",
     "express": "^4.14.0",
-    "sendgrid": "^4.7.1",
+    "sendgrid": "^5.0.1",
     "sendgrid-rest": "^2.2.1",
-    "typescript": "^2.1.5",
+    "typescript": "^2.3.2",
     "unirest": "^0.5.0"
   },
   "devDependencies": {
-    "tslint": "^4.4.2"
+    "tslint": "^5.1.0"
   }
 }
