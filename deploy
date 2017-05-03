@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-if [[ "$(now -t "$NOW_TOKEN" ls aliem-slackbot | awk '{print $2}')" != '0' ]]; then
-    now -t "$NOW_TOKEN" rm -y aliem-slackbot
-fi
-
 now -C \
     -t "$NOW_TOKEN" \
     -n aliem-slackbot \
@@ -12,9 +8,3 @@ now -C \
     -e ALIEMU_REST_AUTH="$ALIEMU_REST_AUTH" \
     -e SENDGRID_API_KEY="$SENDGRID_API_KEY" \
     -e SLACK_TOKEN="$SLACK_TOKEN" "$(pwd)"
-
-deployment_id=$(now ls aliem-slackbot | tail -n 2 | awk '{print $1}')
-
-now ln -C \
-    -t "$NOW_TOKEN" \
-    "$deployment_id" aliem-slackbot
