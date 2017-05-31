@@ -4,7 +4,7 @@ import { SingleListener } from '../../core/conversationListener';
 export const pruneFiles: SingleListener = function(this: Botkit.Controller) {
     this.hears(['prune files', 'delete files', 'clean files'], ['direct_mention', 'direct_message'], (bot, message) => {
         bot.startConversation(message, (_, conversation) => {
-            conversation.ask('Do you really want me to delete all files > 1 year old?', [
+            conversation.ask('Do you really want me to delete all files > 6 months old?', [
                 {
                     callback: deleteOldFiles.bind(bot),
                     pattern: bot.utterances.yes,
