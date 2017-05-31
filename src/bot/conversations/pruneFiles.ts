@@ -22,8 +22,7 @@ export const pruneFiles: SingleListener = function(this: Botkit.Controller) {
 };
 
 function deleteOldFiles(this: Botkit.Bot, _: Botkit.Convo.Response, convo: Botkit.Conversation): Promise<{}> {
-    const d = new Date();
-    d.setFullYear(d.getFullYear() - 1);
+    const d = new Date(Date.now() - 1.577e10); // 6 months in milliseconds
     const unixDate = Math.floor(d.valueOf() / 1000);
     return new Promise<string[]>((res, rej) => {
         this.api.files.list({ token: process.env.ADMIN_SLACK_TOKEN, ts_to: unixDate, count: 1000 }, (err, resp) => {
