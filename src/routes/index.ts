@@ -5,6 +5,7 @@ import airseries from './airseries/';
 import aliemcards from './aliemcards/';
 import aliemu from './aliemu/';
 import capsules from './capsules/';
+import examPrep from './in-training-exam-prep';
 const router = express.Router();
 
 export default function route(
@@ -15,6 +16,7 @@ export default function route(
     router.use('/airseries', airseries(bot));
     router.use('/aliemcards', aliemcards(bot));
     router.use('/aliemu', aliemu(bot));
+    router.use('/in-training-exam-prep', examPrep(bot));
     router.use('/capsules', capsules(bot));
 
     // Interactive messages
