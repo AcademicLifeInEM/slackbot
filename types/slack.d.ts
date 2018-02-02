@@ -216,6 +216,7 @@ declare namespace Slack {
         response_type?: 'in_channel'|'ephemeral';
         replace_original?: boolean;
         delete_original?: boolean;
+        [k: string]: any;
     }
 
     interface Attachment {

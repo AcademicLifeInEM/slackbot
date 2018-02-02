@@ -7,7 +7,10 @@ import aliemu from './aliemu/';
 import capsules from './capsules/';
 const router = express.Router();
 
-export default function route(bot: Botkit.Bot, controller: Botkit.Controller): express.Router {
+export default function route(
+    bot: Botkit.Bot,
+    controller: Botkit.Controller
+): express.Router {
     router.use('/airseries-pro', airPro(bot));
     router.use('/airseries', airseries(bot));
     router.use('/aliemcards', aliemcards(bot));
@@ -19,7 +22,7 @@ export default function route(bot: Botkit.Bot, controller: Botkit.Controller): e
         res.status(200);
         const payload = JSON.parse(req.body.payload);
         if (payload.callback_id) {
-            const message = { ...payload }
+            const message = { ...payload };
             message.type = 'interactive_message_callback';
             controller.trigger('interactive_message_callback', [bot, message]);
         }
@@ -27,4 +30,4 @@ export default function route(bot: Botkit.Bot, controller: Botkit.Controller): e
     });
 
     return router;
-};
+}

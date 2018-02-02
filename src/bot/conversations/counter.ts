@@ -46,7 +46,7 @@ export const counter: SingleListener = function(this: Botkit.Controller, { dispa
     dispatcher.use({id: CALLBACK_ID, handler});
 };
 
-function handler(msg: Botkit.ActionMessage): Botkit.MessageWithContext {
+function handler(msg: any): any {
     if (msg.actions[0].name === 'destroy') {
         return { text: 'Counter Destroyed.' };
     }

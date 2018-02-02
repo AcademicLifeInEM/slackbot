@@ -1,0 +1,31 @@
+extends:
+    - tslint:latest
+    - tslint-config-prettier
+rules:
+    await-promise: true
+    cyclomatic-complexity:
+        options: [10]
+        severity: warning
+    interface-name: false
+    member-access:
+        options:
+            - no-public
+    no-angle-bracket-type-assertion: false
+    no-default-export: false
+    no-implicit-dependencies: false
+    no-inferred-empty-object-type: true
+    no-object-literal-type-assertion: false
+    no-submodule-imports: false
+    no-unnecessary-type-assertion: true
+    no-unused-expression:
+        options:
+            - allow-fast-null-checks
+    no-var-requires: false
+    object-literal-sort-keys: false
+    promise-function-async: true
+    strict-boolean-expressions: false
+    typedef:
+        options:
+            - call-signature
+            - arrow-call-signature
+    variable-name: false

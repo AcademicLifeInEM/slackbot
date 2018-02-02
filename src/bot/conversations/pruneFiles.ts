@@ -21,7 +21,7 @@ export const pruneFiles: SingleListener = function(this: Botkit.Controller) {
     });
 };
 
-function deleteOldFiles(this: Botkit.Bot, _: Botkit.Convo.Response, convo: Botkit.Conversation): Promise<{}> {
+function deleteOldFiles(this: Botkit.Bot, _: Botkit.Convo.Response, convo: Botkit.Conversation): Promise<void> {
     const d = new Date(Date.now() - 1.577e10); // 6 months in milliseconds
     const unixDate = Math.floor(d.valueOf() / 1000);
     return new Promise<string[]>((res, rej) => {
@@ -29,7 +29,7 @@ function deleteOldFiles(this: Botkit.Bot, _: Botkit.Convo.Response, convo: Botki
             if (err || !resp.ok) {
                 rej(new Error('An error occurred while attempting to get a list of files.'));
             }
-            const fileIDs = resp.files.map(file => file.id);
+            const fileIDs: string[] = resp.files.map(file => file.id);
             res(fileIDs);
         });
     })
@@ -52,12 +52,11 @@ function deleteOldFiles(this: Botkit.Bot, _: Botkit.Convo.Response, convo: Botki
             else {
                 convo.say(`${data.length} files deleted successfully.`);
             }
-            convo.next();
+            return convo.next();
         });
     })
     .catch(e => {
         convo.say(e.message);
-        convo.next();
-        return {};
+        return convo.next();
     });
 }

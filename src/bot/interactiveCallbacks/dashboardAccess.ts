@@ -3,20 +3,28 @@ import * as email from '../../lib/email';
 import * as REST from '../../lib/REST/aliemu';
 
 async function handler(msg: Botkit.ActionMessage): Promise<Slack.Message> {
-    const response: Slack.Message = {...msg.original_message};
+    const response: Slack.Message = { ...msg.original_message };
 
-    const { recipientEmail, userID } = msg.original_message.attachments[0].fields.reduce((prev, curr) => {
-        if (curr.title === 'Email Address') {
-            prev.recipientEmail = curr.value.split('|')[1];
-        }
-        if (curr.title === 'ID') {
-            prev.userID = curr.value;
-        }
-        return prev;
-    }, {} as { recipientEmail: string, userID: string });
+    const {
+        recipientEmail,
+        userID,
+    } = msg.original_message.attachments[0].fields.reduce(
+        (prev, curr) => {
+            if (curr.title === 'Email Address') {
+                prev.recipientEmail = curr.value.split('|')[1];
+            }
+            if (curr.title === 'ID') {
+                prev.userID = curr.value;
+            }
+            return prev;
+        },
+        {} as { recipientEmail: string; userID: string }
+    );
 
     if (!recipientEmail) {
-        throw new ReferenceError('Recipient email address could not be identified.');
+        throw new ReferenceError(
+            'Recipient email address could not be identified.'
+        );
     }
 
     switch (msg.actions[0].name) {
@@ -27,7 +35,8 @@ async function handler(msg: Botkit.ActionMessage): Promise<Slack.Message> {
                 {
                     color: 'good',
                     fallback: 'Access granted and email sent.',
-                    title: ':white_check_mark: Educator Dashboard access granted.',
+                    title:
+                        ':white_check_mark: Educator Dashboard access granted.',
                 },
             ];
             return response;

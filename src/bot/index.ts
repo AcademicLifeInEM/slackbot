@@ -2,16 +2,9 @@ import * as Botkit from 'botkit';
 import { ConversationListener } from '../core/conversationListener';
 import InteractiveMessageDispatcher from '../core/interactiveMessageDispatcher';
 
-import {
-    appearIn,
-    counter,
-    hello,
-    pruneFiles,
-} from './conversations/';
+import { appearIn, counter, hello, pruneFiles } from './conversations/';
 
-import {
-    dashboardAccess,
-} from './interactiveCallbacks/';
+import { dashboardAccess } from './interactiveCallbacks/';
 
 /**
  * The root controller for the entire slackbot. All integrations must be
@@ -20,7 +13,10 @@ import {
  */
 export default function rootController(controller: Botkit.Controller): void {
     const interactiveDispatcher = new InteractiveMessageDispatcher();
-    const convoListener = new ConversationListener(controller, interactiveDispatcher);
+    const convoListener = new ConversationListener(
+        controller,
+        interactiveDispatcher
+    );
 
     convoListener
         .use(appearIn)
@@ -28,8 +24,7 @@ export default function rootController(controller: Botkit.Controller): void {
         .use(hello)
         .use(pruneFiles);
 
-    interactiveDispatcher
-        .use(dashboardAccess);
+    interactiveDispatcher.use(dashboardAccess);
 
     controller.on('interactive_message_callback', interactiveDispatcher.handle);
 }

@@ -11,7 +11,9 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-const controller: Botkit.Controller = Botkit.slackbot({ interactive_replies: true });
+const controller: Botkit.Controller = Botkit.slackbot({
+    interactive_replies: true,
+});
 const bot = controller.spawn({ token: TOKEN }).startRTM();
 
 rootController(controller);
