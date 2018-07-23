@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "tslint -e \"node_modules/**/*\" \"**/*.+(ts|tsx)\" -c \"./tslint.json\" -t codeFrame",
     "start": "NODE_ENV=production node ./dist/index.js",
-    "deploy": "torus run ./deploy",
-    "dev": "npm run build && torus run node ./dist/index.js",
+    "deploy": "manifold run ./deploy",
+    "dev": "npm run build && manifold run node ./dist/index.js",
     "build": "tsc -p ."
   },
   "repository": {
